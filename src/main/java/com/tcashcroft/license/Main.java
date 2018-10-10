@@ -8,13 +8,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Objects;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
-/** */
 public class Main {
 
   /**
@@ -100,7 +100,7 @@ public class Main {
    * @param message String - the message in the exception
    * @throws IllegalArgumentException throws if the string is blank
    */
-  private static void assertIsNotBlank(String string, String message)
+  static void assertIsNotBlank(String string, String message)
       throws IllegalArgumentException {
     if (isBlank(string)) {
       throw new IllegalArgumentException(message);
@@ -112,7 +112,7 @@ public class Main {
    * @param string String - the string to check
    * @return boolean - true if the string is null or empty, false otherwise
    */
-  private static boolean isBlank(String string) {
+  static boolean isBlank(String string) {
     if (string == null) {
       return true;
     } else {
@@ -127,7 +127,8 @@ public class Main {
    * @return String - the username
    * @throws IOException throws if an error occurs reading from the file
    */
-  private static String getUsernameFromCredentials(Path file) throws IOException {
+  static String getUsernameFromCredentials(Path file) throws IOException {
+    Objects.requireNonNull(file);
     try (BufferedReader reader = Files.newBufferedReader(file)) {
       String username = reader.readLine();
       return username;
@@ -141,7 +142,8 @@ public class Main {
    * @return String - the password
    * @throws IOException throws if an error occurs reading from the file
    */
-  private static String getPasswordFromCredentials(Path file) throws IOException {
+  static String getPasswordFromCredentials(Path file) throws IOException {
+    Objects.requireNonNull(file);
     try (BufferedReader reader = Files.newBufferedReader(file)) {
       reader.readLine();
       String password = reader.readLine();
